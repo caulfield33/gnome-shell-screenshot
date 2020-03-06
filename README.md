@@ -37,6 +37,10 @@ See https://github.com/OttoAllmendinger/gnome-shell-screenshot/issues/4
 As a workaround, restart the shell: `Ctrl-F2` `r` `Enter`. The clipboard
 should work again afterwards.
 
+### To Text
+Before use 'To Text' button you need to install `Pillow`, `pytesseract` and `cv2`
+User this command to install all required packeges `pip3 install pytesseract Pillow opencv-python`
+
 ## Contributors
 
 * https://github.com/RaphaelRochet, https://github.com/peetcamron -- French translation

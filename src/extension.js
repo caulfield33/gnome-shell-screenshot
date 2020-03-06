@@ -95,6 +95,12 @@ class Screenshot {
     ]);
   }
 
+  convertToText() {
+    Util.spawn(['python3', Local.path + "/itt.py", String(this.srcFile.get_path())])
+
+    Notifications.notifySuccess(String("Text Copied!"));
+  }
+
   copyClipboard() {
     Clipboard.setImage(this.gtkImage);
     this.inClipboard = true;

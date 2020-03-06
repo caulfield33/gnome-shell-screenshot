@@ -73,6 +73,7 @@ class Notification extends MessageTray.Notification {
 
     b.addAction(_("Copy"), this._onCopy.bind(this));
     b.addAction(_("Save"), this._onSave.bind(this));
+    b.addAction(_("To Text"), this._onToText.bind(this));
 
     if (settings.get_boolean(Config.KeyEnableUploadImgur)) {
       if (settings.get_boolean(Config.KeyImgurAutoUpload)) {
@@ -96,6 +97,10 @@ class Notification extends MessageTray.Notification {
     this._screenshot.launchSave();
   }
 
+  _onToText() {
+    this._screenshot.convertToText();
+  }
+
   _onUpload() {
     this._screenshot.imgurStartUpload();
   }
@@ -114,6 +119,19 @@ class ErrorNotification extends MessageTray.Notification {
   }
 }
 Signals.addSignalMethods(ErrorNotification.prototype);
+
+
+class SuccessNotification extends MessageTray.Notification {
+  constructor(source, message) {
+    super(
+      source,
+      _("Success"),
+      String(message),
+      { secondaryGIcon: new Gio.ThemedIcon({name: "dialog-success"}) }
+    );
+  }
+}
+Signals.addSignalMethods(SuccessNotification.prototype);
 
 
 class ImgurNotification extends MessageTray.Notification {
@@ -195,8 +213,15 @@ const notifyImgurUpload = (screenshot) => {
   source.notify(notification);
 }
 
+const notifySuccess = (screenshot) => {
+  const source = getSource();
+  const notification = new SuccessNotification(source, screenshot);
+  source.notify(notification);
+}
+
 var exports = {
   notifyError,
   notifyScreenshot,
-  notifyImgurUpload
+  notifyImgurUpload,
+  notifySuccess
 };
